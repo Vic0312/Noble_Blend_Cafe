@@ -8,6 +8,7 @@ $imagens = [
     'hero'       => $baseImg2 . 'fundo-hero.png',
     'xicaraHero' => $baseImg . 'imagem_cafe_primeira_parte.png',
     'graosFooter'=> $baseImg . 'imagem_rodape.png',
+    'pacoteCafe' => $baseImg . 'pacote_cafe.png',
 ];
 
 $bebidas = [
@@ -28,7 +29,7 @@ $bebidas = [
         'alt' => 'Cafés com arte latte'
     ],
     [
-        'img' => $baseImg . 'cafe5.png',
+        'img' => $baseImg . 'cafe5.jfif',
         'alt' => 'Café especial da casa'
     ],
     [
@@ -39,6 +40,10 @@ $bebidas = [
         'img' => $baseImg . 'cafe7.png',
         'alt' => 'Bebida artesanal de café'
     ],
+    [
+        'img' => $baseImg . 'cafe8.jfif',
+        'alt' => 'Bebida artesanal de café'
+    ],
 
 ];
 
@@ -46,7 +51,7 @@ $pacotes = [
     [
         'titulo' => 'Espresso Clássico',
         'img'    => $baseImg . 'torra-clara-graos.png',
-        'link'   => 'index.php?pagina=espresso-classico',
+        'link'   => 'view/produto-torra-clara.php',
         'alt'    => 'Pacote de café Espresso Clássico'
     ],
     [
@@ -58,13 +63,13 @@ $pacotes = [
     [
         'titulo' => 'Espresso Intenso',
         'img'    => $baseImg . 'torra-media-escura-graos.png',
-        'link'   => 'view/produto-medium.php',
+        'link'   => 'view/produto-torra-media-escura.php',
         'alt'    => 'Pacote de café Espresso Intenso'
     ],
     [
         'titulo' => 'Espresso Premium',
         'img'    => $baseImg . 'torra-escura-graos.png',
-        'link'   => 'index.php?pagina=espresso-premium',
+        'link'   => 'view/produto-dark-cafe.php',
         'alt'    => 'Pacote de café Espresso Premium'
     ],
 ];
@@ -164,7 +169,8 @@ $pacotes = [
             <div class="pacotes__grid">
                 <?php foreach ($pacotes as $pacote): ?>
                     <a class="pacote-card" href="<?= $pacote['link']; ?>" aria-label="Acessar <?= $pacote['titulo']; ?>">
-                        <img src="<?= $pacote['img']; ?>" alt="<?= $pacote['alt']; ?>">
+                        <img class="pacote-card__fundo" src="<?= $pacote['img']; ?>" alt="<?= $pacote['alt']; ?>">
+                        <img class="pacote-card__sacola" src="<?= $imagens['pacoteCafe']; ?>" alt="Pacote de café Noble Blend Café" aria-hidden="true">
                         <span><?= $pacote['titulo']; ?></span>
                     </a>
                 <?php endforeach; ?>
@@ -172,9 +178,8 @@ $pacotes = [
         </section>
     </main>
 
-    <a class="voltar-topo" href="#topo" aria-label="Voltar ao topo da página">
+    <a class="voltar-topo" href="#topo" aria-label="Voltar ao topo da página" title="Voltar ao topo">
         <span aria-hidden="true">↑</span>
-        Voltar ao topo
     </a>
 
     <footer class="rodape">

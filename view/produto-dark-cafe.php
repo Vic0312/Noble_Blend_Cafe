@@ -16,22 +16,22 @@ function asset(string $caminho): string
 $imagens = [
     'ajuda'      => asset('../img/ponto-de-interrogacao.png'),
     'pacoteCafe' => asset('../img/pacote_cafe.png'),
-    'cafeMocha'  => asset('../img/cafe_mocha.png'),
+    'cafeDark'  => asset('../img/cafedark.png'),
     'graosIcone' => asset('../img/graos-de-cafe-icone.png'),
 ];
 
 $beneficios = [
-    'Equilíbrio de Sabor: A torra média oferece um equilíbrio harmonioso entre acidez, doçura e amargor, resultando em uma xícara de café bem balanceada.',
-    'Aromas Profundos: Desfrute de aromas mais robustos e complexos, com notas de caramelo, nozes e chocolate.',
-    'Sabor Encorpado: O perfil de sabor é mais completo, com uma textura aveludada que preenche o paladar.',
-    'Versatilidade: Ideal para diversos métodos de preparo, desde o tradicional café coado até espressos intensos.',
-    'Benefícios à Saúde: A torra média mantém uma boa quantidade de antioxidantes e compostos benéficos, auxiliando na saúde geral e no bem-estar.',
+    'Sabor Robusto: A torra escura desenvolve um perfil de sabor profundo, com notas de chocolate amargo, caramelo queimado e nozes tostadas.',
+    'Aromas Intensos: Desfrute de um aroma forte e marcante, com nuances de especiarias e tabaco.',
+    'Encorpado e Aveludado: Oferece uma textura densa e cremosa, com um final suave e persistente.',
+    'Baixa Acidez: A torra escura reduz significativamente a acidez natural do café, resultando em uma bebida mais suave e encorpada.',
+    'Versatilidade: Ideal para métodos de preparo como espresso, cafeteira italiana e café turco, adaptando-se bem a diversas receitas e preparos.',
 ];
 
 $producao = [
-    'Seleção dos Grãos: Grãos premium são selecionados para um perfil de sabor equilibrado.',
-    'Torrefação: Os grãos passam por um processo de torra moderada, que equilibra a acidez e o amargor, resultando em um sabor harmonioso.',
-    'Controle de Qualidade: Garantimos consistência em cada lote através de rigorosos testes de sabor.',
+    'Seleção dos Grãos: Grãos selecionados para proporcionar um perfil de sabor intenso.',
+    'Torrefação: Torrados até um ponto escuro, os grãos desenvolvem notas fortes de chocolate, caramelo e especiarias, com baixa acidez.',
+    'Controle de Qualidade: Realizamos testes rigorosos para garantir que cada lote tenha a intensidade e o sabor desejados.',
 ];
 ?>
 <!DOCTYPE html>
@@ -39,7 +39,7 @@ $producao = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medium Café | Noble Blend Café</title>
+    <title>Dark Café | Noble Blend Café</title>
     <link rel="stylesheet" href="<?= asset('../css/produto-medium.css'); ?>">
 </head>
 <body id="topo">
@@ -51,15 +51,16 @@ $producao = [
         <section class="produto-hero" aria-labelledby="titulo-produto">
             <div class="produto-hero__painel">
                 <div class="produto-hero__texto">
-                    <h1 id="titulo-produto">Medium<br>Café</h1>
+                    <h1 id="titulo-produto">Dark<br>Café</h1>
                     <p>
-                        Conheça nosso Medium Café 350g, especialmente selecionado para oferecer
-                        um equilíbrio perfeito entre sabor, aroma e intensidade.
+                        Experimente a intensidade máxima do nosso Dark Café.
                     </p>
                     <p>
-                        A torra média realça as características intrínsecas dos grãos,
-                        proporcionando uma xícara rica e encorpada que agrada tanto aos
-                        paladares exigentes quanto aos apreciadores casuais.
+                         Esta torra é perfeita para quem prefere um café forte e marcante, 
+                         com um sabor robusto e encorpado que proporciona uma experiência sensorial inesquecível.
+                    </p>
+                    <p>
+                         A torra escura realça os sabores mais profundos e complexos dos grãos, resultando em uma bebida rica e satisfatória.
                     </p>
                 </div>
             </div>
@@ -73,7 +74,7 @@ $producao = [
             <img class="marca-dagua marca-dagua--beneficios" src="<?= $imagens['graosIcone']; ?>" alt="" aria-hidden="true">
 
             <div class="container container--estreito">
-                <h2 id="titulo-beneficios">Benefícios da Torra Média Clara</h2>
+                <h2 id="titulo-beneficios">Benefícios da Torra Escura</h2>
 
                 <ol class="lista-beneficios">
                     <?php foreach ($beneficios as $beneficio): ?>
@@ -92,23 +93,22 @@ $producao = [
                     <div class="receita__bloco">
                         <h4>Ingredientes:</h4>
                         <ol>
-                            <li>50ml de café espresso (torra média)</li>
-                            <li>150ml de leite</li>
-                            <li>2 colheres de sopa de calda de chocolate.</li>
+                            <li>50ml de café espresso (torra escura);</li>
+                            <li>150ml de água quente.</li>
                         </ol>
                     </div>
 
                     <div class="receita__bloco receita__bloco--preparo">
                         <h4>Modo de Preparo:</h4>
                         <p>
-                            Misture o café com a calda de chocolate. Aqueça o leite e vaporize até obter espuma.
-                            Adicione o leite vaporizado ao café com chocolate e sirva com chantilly, se desejar.
+                            Prepare o espresso e adicione água quente para diluir, 
+                            criando uma bebida suave, mas com o sabor robusto característico da torra escura.
                         </p>
                     </div>
                 </div>
 
                 <figure class="receita__imagem">
-                    <img src="<?= $imagens['cafeMocha']; ?>" alt="Café mocha servido em xícara de vidro">
+                    <img src="<?= $imagens['cafeDark']; ?>" alt="Café dark servido em xícara de vidro">
                 </figure>
             </div>
         </section>
@@ -126,9 +126,8 @@ $producao = [
                 </ul>
 
                 <p class="descricao-final">
-                    <strong>Descrição:</strong> O Grão de Café de Torra Média proporciona uma bebida equilibrada,
-                    com notas de caramelo, nozes e um leve toque de chocolate. Ideal para métodos como
-                    espresso e prensa francesa, oferecendo uma xícara bem balanceada.
+                    <strong>Descrição:</strong> O Grão de Café de Torra Escura oferece uma experiência robusta e intensa, perfeita para amantes de café forte. Ideal para métodos como espresso 
+                    e café turco, sua baixa acidez e textura aveludada garantem uma xícara rica e satisfatória.
                 </p>
             </div>
         </section>

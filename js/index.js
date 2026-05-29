@@ -1,6 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     const carousel = document.querySelector('[data-carousel]');
     const track = document.querySelector('[data-carousel-track]');
+    const botaoTopo = document.querySelector('.voltar-topo');
+
+    const controlarBotaoTopo = () => {
+        if (!botaoTopo) return;
+        botaoTopo.classList.toggle('voltar-topo--visivel', window.scrollY > 320);
+    };
+
+    window.addEventListener('scroll', controlarBotaoTopo, { passive: true });
+    controlarBotaoTopo();
 
     if (!carousel || !track) return;
 

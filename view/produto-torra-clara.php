@@ -16,22 +16,22 @@ function asset(string $caminho): string
 $imagens = [
     'ajuda'      => asset('../img/ponto-de-interrogacao.png'),
     'pacoteCafe' => asset('../img/pacote_cafe.png'),
-    'cafeMocha'  => asset('../img/cafe_mocha.png'),
+    'cafeGelado'  => asset('../img/cafe_gelado.png'),
     'graosIcone' => asset('../img/graos-de-cafe-icone.png'),
 ];
 
 $beneficios = [
-    'Equilíbrio de Sabor: A torra média oferece um equilíbrio harmonioso entre acidez, doçura e amargor, resultando em uma xícara de café bem balanceada.',
-    'Aromas Profundos: Desfrute de aromas mais robustos e complexos, com notas de caramelo, nozes e chocolate.',
-    'Sabor Encorpado: O perfil de sabor é mais completo, com uma textura aveludada que preenche o paladar.',
-    'Versatilidade: Ideal para diversos métodos de preparo, desde o tradicional café coado até espressos intensos.',
-    'Benefícios à Saúde: A torra média mantém uma boa quantidade de antioxidantes e compostos benéficos, auxiliando na saúde geral e no bem-estar.',
+    'Aromas Intensos: A torra clara mantém os aromas originais do café, proporcionando uma experiência olfativa rica e diversificada.',
+    'Maior Acidez: Essa torra realça a acidez natural do café, oferecendo uma xícara mais brilhante e refrescante.',
+    'Perfil de Sabor Complexo: Saboreie notas frutadas e florais, com nuances que variam conforme a origem do grão.',
+    'Maior Teor de Cafeína: Com menor tempo de torrefação, a torra clara preserva mais cafeína, resultando em uma bebida mais estimulante.',
+    'Antioxidantes Naturais: A torra clara conserva maior quantidade de antioxidantes, que auxiliam na proteção contra radicais livres.',
 ];
 
 $producao = [
-    'Seleção dos Grãos: Grãos premium são selecionados para um perfil de sabor equilibrado.',
-    'Torrefação: Os grãos passam por um processo de torra moderada, que equilibra a acidez e o amargor, resultando em um sabor harmonioso.',
-    'Controle de Qualidade: Garantimos consistência em cada lote através de rigorosos testes de sabor.',
+    'Seleção dos Grãos: Escolhemos os melhores grãos de café de fazendas sustentáveis ao redor do mundo.',
+    'Torrefação: Os grãos são torrados em temperaturas mais baixas por um período mais curto, garantindo que suas características naturais sejam preservadas.',
+    'Controle de Qualidade: Cada lote é rigorosamente testado para assegurar que mantém o perfil de sabor desejado.',
 ];
 ?>
 <!DOCTYPE html>
@@ -39,8 +39,8 @@ $producao = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medium Café | Noble Blend Café</title>
-    <link rel="stylesheet" href="<?= asset('../css/produto-medium.css'); ?>">
+    <title>Light Café | Noble Blend Café</title>
+    <link rel="stylesheet" href="<?= asset('../css/produto-medium2.css'); ?>">
 </head>
 <body id="topo">
     <a class="ajuda-flutuante" href="index.php?pagina=ajuda" aria-label="Ajuda">
@@ -51,15 +51,14 @@ $producao = [
         <section class="produto-hero" aria-labelledby="titulo-produto">
             <div class="produto-hero__painel">
                 <div class="produto-hero__texto">
-                    <h1 id="titulo-produto">Medium<br>Café</h1>
+                    <h1 id="titulo-produto">Light<br>Café</h1>
                     <p>
-                        Conheça nosso Medium Café 350g, especialmente selecionado para oferecer
-                        um equilíbrio perfeito entre sabor, aroma e intensidade.
+                        Descubra a excelência do nosso Light café 350g, cuidadosamente 
+                        selecionado para proporcionar uma experiência sensorial única.
                     </p>
                     <p>
-                        A torra média realça as características intrínsecas dos grãos,
-                        proporcionando uma xícara rica e encorpada que agrada tanto aos
-                        paladares exigentes quanto aos apreciadores casuais.
+                        A torra clara preserva as características naturais dos grãos, 
+                        revelando notas complexas e sabores sutis.
                     </p>
                 </div>
             </div>
@@ -73,7 +72,7 @@ $producao = [
             <img class="marca-dagua marca-dagua--beneficios" src="<?= $imagens['graosIcone']; ?>" alt="" aria-hidden="true">
 
             <div class="container container--estreito">
-                <h2 id="titulo-beneficios">Benefícios da Torra Média Clara</h2>
+                <h2 id="titulo-beneficios">Benefícios da Torra Média</h2>
 
                 <ol class="lista-beneficios">
                     <?php foreach ($beneficios as $beneficio): ?>
@@ -87,28 +86,28 @@ $producao = [
             <div class="container receita__conteudo">
                 <div class="receita__texto">
                     <h2 id="titulo-receita">Receitas Sugeridas</h2>
-                    <h3>Café Mocha</h3>
+                    <h3>Café Gelado com Leite de Amêndoas</h3>
 
                     <div class="receita__bloco">
                         <h4>Ingredientes:</h4>
                         <ol>
-                            <li>50ml de café espresso (torra média)</li>
-                            <li>150ml de leite</li>
-                            <li>2 colheres de sopa de calda de chocolate.</li>
+                            <li>50ml de café coado forte (torra clara); </li>
+                            <li>200ml de leite de amêndoas;</li>
+                            <li>gelo;</li>
                         </ol>
                     </div>
 
                     <div class="receita__bloco receita__bloco--preparo">
                         <h4>Modo de Preparo:</h4>
                         <p>
-                            Misture o café com a calda de chocolate. Aqueça o leite e vaporize até obter espuma.
-                            Adicione o leite vaporizado ao café com chocolate e sirva com chantilly, se desejar.
+                            Encha um copo com gelo, adicione o café coado e complete com leite de amêndoas.
+                             Misture bem e sirva imediatamente para uma bebida refrescante e deliciosa.
                         </p>
                     </div>
                 </div>
 
                 <figure class="receita__imagem">
-                    <img src="<?= $imagens['cafeMocha']; ?>" alt="Café mocha servido em xícara de vidro">
+                    <img src="<?= $imagens['cafeGelado']; ?>" alt="Café gelado servido em copo de vidro">
                 </figure>
             </div>
         </section>
@@ -126,9 +125,10 @@ $producao = [
                 </ul>
 
                 <p class="descricao-final">
-                    <strong>Descrição:</strong> O Grão de Café de Torra Média proporciona uma bebida equilibrada,
-                    com notas de caramelo, nozes e um leve toque de chocolate. Ideal para métodos como
-                    espresso e prensa francesa, oferecendo uma xícara bem balanceada.
+                    <strong>Descrição:</strong> Nosso Grão de Café de Torra Clara oferece uma experiência 
+                    sensorial única, destacando notas frutadas e florais com uma acidez brilhante. 
+                    Perfeito para métodos de preparo que realçam seu sabor delicado, como café coado
+                     e cold brew.
                 </p>
             </div>
         </section>
