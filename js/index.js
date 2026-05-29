@@ -1,0 +1,62 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('[data-carousel]');
+    const track = document.querySelector('[data-carousel-track]');
+
+    if (!carousel || !track) return;
+
+    let index = 0;
+    let intervalId = null;
+    const cards = Array.from(track.children);
+
+    const getVisibleCards = () => {
+        const width = window.innerWidth;
+        if (width <= 700) return 1;
+        if (width <= 1050) return 2;
+        return 4;
+    };
+
+    const getGap = () => {
+        const styles = window.getComputedStyle(track);
+        return parseFloat(styles.columnGap || styles.gap || 0) || 0;
+    };
+
+    const updateCarousel = () => {
+        if (!cards.length) return;
+
+        const visibleCards = getVisibleCards();
+        const maxIndex = Math.max(cards.length - visibleCards, 0);
+
+        if (index > maxIndex) index = 0;
+
+        const cardWidth = cards[0].getBoundingClientRect().width;
+        const gap = getGap();
+        track.style.transform = `translateX(-${index * (cardWidth + gap)}px)`;
+    };
+
+    const nextSlide = () => {
+        const visibleCards = getVisibleCards();
+        const maxIndex = Math.max(cards.length - visibleCards, 0);
+        index = index >= maxIndex ? 0 : index + 1;
+        updateCarousel();
+    };
+
+    const startAutoPlay = () => {
+        stopAutoPlay();
+        intervalId = setInterval(nextSlide, 2800);
+    };
+
+    const stopAutoPlay = () => {
+        if (intervalId) clearInterval(intervalId);
+    };
+
+    carousel.addEventListener('mouseenter', stopAutoPlay);
+    carousel.addEventListener('mouseleave', startAutoPlay);
+
+    window.addEventListener('resize', () => {
+        updateCarousel();
+        startAutoPlay();
+    });
+
+    updateCarousel();
+    startAutoPlay();
+});
