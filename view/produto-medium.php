@@ -43,7 +43,7 @@ $producao = [
     <link rel="stylesheet" href="<?= asset('../css/produto-medium.css'); ?>">
 </head>
 <body id="topo">
-    <a class="ajuda-flutuante" href="index.php?pagina=ajuda" aria-label="Ajuda">
+    <a class="ajuda-flutuante" href="ajuda.php" aria-label="Ajuda">
         <img src="<?= $imagens['ajuda']; ?>" alt="">
     </a>
 

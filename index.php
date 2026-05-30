@@ -90,15 +90,38 @@ $pacotes = [
             </a>
 
             <div class="navbar__acoes">
-                <a href="index.php?pagina=ajuda" class="navbar__icone" aria-label="Ajuda">
+                <a href="view/ajuda.php" class="navbar__icone" aria-label="Ajuda">
                     <img src="img/ponto-de-interrogacao.png">
                 </a>
-                <a href="index.php?pagina=perfil" class="navbar__perfil" aria-label="Perfil do usuário">
-                    <img src="img/usuario_icone.png">
-                </a>
+                <button class="navbar__perfil" type="button" aria-label="Abrir opções de conta" data-modal-usuario-abrir>
+                    <img src="img/usuario_icone.png" alt="Ícone de usuário">
+                </button>
             </div>
         </nav>
     </header>
+
+    <div class="modal-usuario" data-modal-usuario aria-hidden="true">
+        <div class="modal-usuario__fundo" data-modal-usuario-fechar></div>
+
+        <section class="modal-usuario__caixa" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-usuario">
+            <button class="modal-usuario__fechar" type="button" aria-label="Fechar modal" data-modal-usuario-fechar>×</button>
+
+            <h2 id="titulo-modal-usuario">Acesse sua conta</h2>
+            <p class="modal-usuario__texto">Escolha uma das opções abaixo para continuar no Noble Blend Café.</p>
+
+            <div class="modal-usuario__opcoes">
+                <a class="modal-usuario__opcao" href="view/cadastro.php">
+                    <span>Gostaria de se cadastrar?</span>
+                    <small>Criar uma nova conta</small>
+                </a>
+
+                <a class="modal-usuario__opcao modal-usuario__opcao--secundaria" href="view/selecionar_usuario.php">
+                    <span>Já possui uma conta?</span>
+                    <small>Entrar na sua conta</small>
+                </a>
+            </div>
+        </section>
+    </div>
 
     <main>
         <section class="hero" aria-labelledby="titulo-hero" style="--hero-bg: url('<?= $imagens['hero']; ?>');">

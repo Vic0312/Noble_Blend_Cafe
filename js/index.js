@@ -11,6 +11,39 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', controlarBotaoTopo, { passive: true });
     controlarBotaoTopo();
 
+
+    const modalUsuario = document.querySelector('[data-modal-usuario]');
+    const botoesAbrirModalUsuario = document.querySelectorAll('[data-modal-usuario-abrir]');
+    const botoesFecharModalUsuario = document.querySelectorAll('[data-modal-usuario-fechar]');
+
+    const abrirModalUsuario = () => {
+        if (!modalUsuario) return;
+        modalUsuario.classList.add('modal-usuario--aberto');
+        modalUsuario.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-aberto');
+    };
+
+    const fecharModalUsuario = () => {
+        if (!modalUsuario) return;
+        modalUsuario.classList.remove('modal-usuario--aberto');
+        modalUsuario.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-aberto');
+    };
+
+    botoesAbrirModalUsuario.forEach((botao) => {
+        botao.addEventListener('click', abrirModalUsuario);
+    });
+
+    botoesFecharModalUsuario.forEach((botao) => {
+        botao.addEventListener('click', fecharModalUsuario);
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            fecharModalUsuario();
+        }
+    });
+
     if (!carousel || !track) return;
 
     let index = 0;
