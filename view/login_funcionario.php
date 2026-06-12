@@ -64,10 +64,6 @@ $imagens = array(
                         </div>
                     </label>
 
-                    <div class="login-form__extras">
-                        <span>Acesso inicial: funcionario@nobleblend.com</span>
-                        <a href="cadastro_funcionario.php" class="esqueci-senha">Cadastrar funcionário</a>
-                    </div>
 
                     <button class="botao-acessar" type="submit">Acessar</button>
                 </form>

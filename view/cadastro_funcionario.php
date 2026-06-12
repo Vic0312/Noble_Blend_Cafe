@@ -20,14 +20,18 @@ $imagens = array(
         <section class="auth-panel auth-panel--staff" aria-labelledby="titulo-cadastro-funcionario">
             <img class="auth-watermark" src="<?= $imagens['marca']; ?>" alt="" aria-hidden="true">
 
-            <div class="auth-brand">
+            <div class="auth-brand auth-brand--logo-only">
                 <img src="<?= $imagens['logo']; ?>" alt="Logo Noble Blend Café">
-                <p class="eyebrow">Equipe Noble Blend</p>
                 <h1 id="titulo-cadastro-funcionario">Cadastro de funcionário</h1>
                 <p>Use esta tela para criar acessos da equipe. Não há separação entre administrador e funcionário comum.</p>
             </div>
 
             <form class="form-card" action="../processamento/cadastro_funcionario.php" method="post">
+                <header class="form-card__heading">
+                    <p class="eyebrow">Equipe Noble Blend</p>
+                    <h2>Cadastro de funcionario</h2>
+                </header>
+
                 <?php if ($flash): ?>
                     <div class="flash flash--<?= e($flash['tipo']); ?>"><?= e($flash['mensagem']); ?></div>
                 <?php endif; ?>

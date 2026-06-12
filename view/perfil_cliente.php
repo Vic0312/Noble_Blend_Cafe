@@ -27,6 +27,7 @@ $cliente = Cliente::buscarPorId(AuthController::clienteId());
                 <p>Atualize seus dados de contato, CPF e senha.</p>
             </div>
             <a class="btn btn--ghost" href="logado_cliente.php">Voltar ao início</a>
+            <a class="btn btn--danger" href="../processamento/logout.php" onclick="return confirm('Voce deseja mesmo sair?');">Sair</a>
         </section>
 
         <?php if ($flash): ?>

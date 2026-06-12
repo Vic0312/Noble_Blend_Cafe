@@ -36,7 +36,7 @@ $produtoEditar = isset($_GET['editar']) ? Produto::buscar((int) $_GET['editar'])
             <?php endif; ?>
         </section>
 
-        <form class="form-panel product-editor" action="../processamento/produto_salvar.php" method="post" enctype="multipart/form-data">
+        <form class="form-panel product-editor" action="../processamento/produto_salvar.php" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
             <input type="hidden" name="id_produto" value="<?= (int) ($produtoEditar['id_produto'] ?? 0); ?>">
             <input type="hidden" name="imagem_atual" value="<?= e($produtoEditar['imagem'] ?? ''); ?>">
 

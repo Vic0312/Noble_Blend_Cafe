@@ -20,14 +20,17 @@ $imagens = array(
         <section class="auth-panel" aria-labelledby="titulo-cadastro-cliente">
             <img class="auth-watermark" src="<?= $imagens['marca']; ?>" alt="" aria-hidden="true">
 
-            <div class="auth-brand">
+            <div class="auth-brand auth-brand--logo-only">
                 <img src="<?= $imagens['logo']; ?>" alt="Logo Noble Blend Café">
-                <p class="eyebrow">Coffee Lovers</p>
-                <h1 id="titulo-cadastro-cliente">Criar conta de cliente</h1>
                 <p>Cadastre-se para comprar pelo cardápio, acompanhar pedidos e montar seu carrinho.</p>
             </div>
 
             <form class="form-card" action="../processamento/cadastro_cliente.php" method="post">
+                <header class="form-card__heading">
+                    <p class="eyebrow">Coffee Lovers</p>
+                    <h1 id="titulo-cadastro-cliente">Criar conta de cliente</h1>
+                </header>
+
                 <?php if ($flash): ?>
                     <div class="flash flash--<?= e($flash['tipo']); ?>"><?= e($flash['mensagem']); ?></div>
                 <?php endif; ?>

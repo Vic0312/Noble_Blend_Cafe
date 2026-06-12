@@ -22,7 +22,7 @@ $funcionarioNomeNav = $_SESSION['funcionario_nome'] ?? 'Funcionário';
 
         <div class="staff-nav__user">
             <span><?= e($funcionarioNomeNav); ?></span>
-            <a href="../processamento/logout.php">Sair</a>
+            <a href="../processamento/logout.php" onclick="return confirm('Voce deseja mesmo sair?');">Sair</a>
         </div>
     </nav>
 </header>

@@ -60,6 +60,38 @@ $pagamentoMax = 0;
 foreach ($pagamentos as $pagamento) {
     $pagamentoMax = max($pagamentoMax, (int) $pagamento['total']);
 }
+
+$coresGrafico = array('#372416', '#d6a06c', '#5f6f52', '#c8aa4a', '#9f2f24', '#725239');
+
+function montarGraficoCircular($linhas, $campoValor, $cores)
+{
+    $total = 0;
+    foreach ($linhas as $linha) {
+        $total += (float) ($linha[$campoValor] ?? 0);
+    }
+
+    if ($total <= 0) {
+        return array('total' => 0, 'style' => 'background: conic-gradient(#d4bda1 0% 100%);');
+    }
+
+    $inicio = 0;
+    $partes = array();
+    foreach ($linhas as $indice => $linha) {
+        $valor = (float) ($linha[$campoValor] ?? 0);
+        if ($valor <= 0) {
+            continue;
+        }
+
+        $fim = $inicio + (($valor / $total) * 100);
+        $partes[] = $cores[$indice % count($cores)] . ' ' . round($inicio, 2) . '% ' . round($fim, 2) . '%';
+        $inicio = $fim;
+    }
+
+    return array('total' => $total, 'style' => 'background: conic-gradient(' . implode(', ', $partes) . ');');
+}
+
+$graficoStatus = montarGraficoCircular($statusPedidos, 'total', $coresGrafico);
+$graficoPagamentos = montarGraficoCircular($pagamentos, 'total', $coresGrafico);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -77,13 +109,10 @@ foreach ($pagamentos as $pagamento) {
             <div class="flash flash--<?= e($flash['tipo']); ?>"><?= e($flash['mensagem']); ?></div>
         <?php endif; ?>
 
-        <section class="staff-hero staff-hero--dashboard">
+        <section class="staff-hero staff-hero--dashboard" style="--staff-dashboard-img: url('<?= e(asset('../img/fundo-hero.png')); ?>');">
             <div>
-                <p class="eyebrow">Painel de controle</p>
-                <h1>Visão geral</h1>
-                <p>Resumo limpo do banco: vendas, clientes, produtos e alertas de estoque.</p>
+                <h1>Painel geral</h1>
             </div>
-            <img src="<?= asset('../img/pacote_cafe.png'); ?>" alt="Pacote de café Noble Blend">
         </section>
 
         <section class="metric-grid metric-grid--dashboard" aria-label="Indicadores">
@@ -147,7 +176,7 @@ foreach ($pagamentos as $pagamento) {
         </section>
 
         <section class="dashboard-grid">
-            <article class="chart-card">
+            <article class="chart-card chart-card--circle">
                 <div class="section-heading section-heading--inside">
                     <div>
                         <p class="eyebrow">Status</p>
@@ -155,24 +184,27 @@ foreach ($pagamentos as $pagamento) {
                     </div>
                 </div>
 
-                <div class="bar-list">
-                    <?php foreach ($statusPedidos as $statusRow): ?>
-                        <?php $largura = $statusMax > 0 ? ((int) $statusRow['total'] / $statusMax) * 100 : 0; ?>
-                        <div class="bar-row">
-                            <div class="bar-row__label">
-                                <strong><?= e($statusRow['status']); ?></strong>
-                                <span><?= (int) $statusRow['total']; ?> pedido(s)</span>
-                            </div>
-                            <div class="bar-track"><span style="width: <?= (float) $largura; ?>%"></span></div>
+                <?php if (empty($statusPedidos)): ?>
+                    <p class="muted">Nenhum pedido registrado ainda.</p>
+                <?php else: ?>
+                    <div class="circle-chart-layout">
+                        <div class="donut-chart" style="<?= e($graficoStatus['style']); ?>">
+                            <span><?= (int) $graficoStatus['total']; ?></span>
                         </div>
-                    <?php endforeach; ?>
-                    <?php if (empty($statusPedidos)): ?>
-                        <p class="muted">Nenhum pedido registrado ainda.</p>
-                    <?php endif; ?>
-                </div>
+                        <div class="chart-legend">
+                            <?php foreach ($statusPedidos as $indice => $statusRow): ?>
+                                <div>
+                                    <span class="legend-swatch" style="background: <?= e($coresGrafico[$indice % count($coresGrafico)]); ?>"></span>
+                                    <strong><?= e($statusRow['status']); ?></strong>
+                                    <em><?= (int) $statusRow['total']; ?> pedido(s)</em>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </article>
 
-            <article class="chart-card">
+            <article class="chart-card chart-card--circle">
                 <div class="section-heading section-heading--inside">
                     <div>
                         <p class="eyebrow">Pagamento</p>
@@ -180,22 +212,22 @@ foreach ($pagamentos as $pagamento) {
                     </div>
                 </div>
 
-                <div class="bar-list">
-                    <?php foreach ($pagamentos as $pagamento): ?>
-                        <?php $largura = $pagamentoMax > 0 ? ((int) $pagamento['total'] / $pagamentoMax) * 100 : 0; ?>
-                        <div class="bar-row">
-                            <div class="bar-row__label">
-                                <strong><?= e(ucfirst($pagamento['metodo_pagamento'])); ?></strong>
-                                <span><?= (int) $pagamento['total']; ?> pedido(s)</span>
-                            </div>
-                            <div class="bar-track"><span style="width: <?= (float) $largura; ?>%"></span></div>
-                            <em><?= money($pagamento['receita']); ?></em>
+                <?php if (empty($pagamentos)): ?>
+                    <p class="muted">Nenhum pagamento registrado ainda.</p>
+                <?php else: ?>
+                    <div class="circle-chart-layout">
+                        <div class="pie-chart" style="<?= e($graficoPagamentos['style']); ?>" aria-hidden="true"></div>
+                        <div class="chart-legend">
+                            <?php foreach ($pagamentos as $indice => $pagamento): ?>
+                                <div>
+                                    <span class="legend-swatch" style="background: <?= e($coresGrafico[$indice % count($coresGrafico)]); ?>"></span>
+                                    <strong><?= e(ucfirst($pagamento['metodo_pagamento'])); ?></strong>
+                                    <em><?= (int) $pagamento['total']; ?> pedido(s) &middot; <?= money($pagamento['receita']); ?></em>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
-                    <?php endforeach; ?>
-                    <?php if (empty($pagamentos)): ?>
-                        <p class="muted">Nenhum pagamento registrado ainda.</p>
-                    <?php endif; ?>
-                </div>
+                    </div>
+                <?php endif; ?>
             </article>
         </section>
 

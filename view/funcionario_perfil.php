@@ -26,6 +26,7 @@ $funcionario = Funcionario::buscarPorId(AuthController::funcionarioId());
                 <h1>Editar perfil</h1>
                 <p>Atualize seus dados de funcionário e senha de acesso.</p>
             </div>
+            <a class="btn btn--danger" href="../processamento/logout.php" onclick="return confirm('Voce deseja mesmo sair?');">Sair</a>
         </section>
 
         <?php if ($flash): ?>

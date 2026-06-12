@@ -4,6 +4,27 @@ require_once __DIR__ . '/Conexao.php';
 
 class Produto
 {
+    private static function normalizarTexto($valor)
+    {
+        $texto = trim((string) $valor);
+
+        if ($texto === '') {
+            return '';
+        }
+
+        if (function_exists('mb_check_encoding') && !mb_check_encoding($texto, 'UTF-8')) {
+            $convertido = mb_convert_encoding($texto, 'UTF-8', 'Windows-1252,ISO-8859-1');
+            return is_string($convertido) ? $convertido : $texto;
+        }
+
+        if (!preg_match('//u', $texto)) {
+            $convertido = @iconv('Windows-1252', 'UTF-8//IGNORE', $texto);
+            return is_string($convertido) ? $convertido : $texto;
+        }
+
+        return $texto;
+    }
+
     public static function listar($filtros = array())
     {
         $where = array();
@@ -77,10 +98,10 @@ class Produto
     public static function salvar($dados)
     {
         $id = (int) ($dados['id_produto'] ?? 0);
-        $nome = trim($dados['nome'] ?? '');
-        $categoria = trim($dados['categoria'] ?? '');
-        $descricaoCurta = trim($dados['descricao_curta'] ?? '');
-        $descricao = trim($dados['descricao'] ?? '');
+        $nome = self::normalizarTexto($dados['nome'] ?? '');
+        $categoria = self::normalizarTexto($dados['categoria'] ?? '');
+        $descricaoCurta = self::normalizarTexto($dados['descricao_curta'] ?? '');
+        $descricao = self::normalizarTexto($dados['descricao'] ?? '');
         $preco = (float) str_replace(',', '.', (string) ($dados['preco'] ?? 0));
         $precoClubeBruto = $dados['preco_clube'] ?? '';
         $precoClube = $precoClubeBruto !== ''
