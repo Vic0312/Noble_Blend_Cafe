@@ -33,13 +33,12 @@ $redirectAtual = $_SERVER['REQUEST_URI'] ?? 'cardapio.php';
     <?php include __DIR__ . '/partials/nav_cliente.php'; ?>
 
     <main class="page-shell">
-        <section class="page-hero menu-hero" style="--hero-img: url('<?= asset('../img/fundo-hero.png'); ?>');">
+        <section class="section-heading section-heading--top">
             <div>
                 <p class="eyebrow">Cardápio Noble Blend</p>
-                <h1>Escolha sua próxima xícara</h1>
-                <p>Cafés especiais, bebidas geladas, grãos selecionados e sobremesas para finalizar bem.</p>
+                <h1>Cardápio</h1>
             </div>
-            <img src="<?= asset('../img/imagem_cafe_primeira_parte.png'); ?>" alt="Xícara de café Noble Blend">
+            <a class="btn btn--ghost" href="carrinho.php">Ver carrinho</a>
         </section>
 
         <?php if ($flash): ?>
@@ -102,7 +101,6 @@ $redirectAtual = $_SERVER['REQUEST_URI'] ?? 'cardapio.php';
                         <p class="eyebrow">Resultado</p>
                         <h2><?= count($produtos); ?> item(ns) encontrados</h2>
                     </div>
-                    <a class="btn btn--ghost" href="carrinho.php">Ver carrinho</a>
                 </div>
 
                 <?php if (empty($produtos)): ?>

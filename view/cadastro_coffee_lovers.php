@@ -52,14 +52,14 @@ $imagens = [
             </div>
 
             <?php if ($flash): ?>
-                <div class="aviso-cadastro" role="alert">
+                <div class="aviso-cadastro <?= $flash['tipo'] === 'sucesso' ? 'aviso-cadastro--sucesso' : ''; ?>" role="alert">
                     <strong aria-hidden="true"><?= $flash['tipo'] === 'sucesso' ? '✓' : '!'; ?></strong>
                     <div>
                         <h3><?= $flash['tipo'] === 'sucesso' ? 'Pronto!' : 'Atenção!'; ?></h3>
                             <p><?= e($flash['mensagem']); ?></p>
                     </div>
                 </div>
-            <?php else: ?>
+            <?php elseif (!$possuiClube): ?>
                 <div class="aviso-cadastro" role="alert">
                     <strong aria-hidden="true">!</strong>
                     <div>
@@ -71,44 +71,50 @@ $imagens = [
                 </div>
             <?php endif; ?>
 
-            <form class="form-cadastro" action="../processamento/coffee_lovers_salvar.php" method="POST">
-                <p class="form-cadastro__texto">
-                    Informe seu CPF e senha da conta para confirmar seu cadastro no clube Coffee Lovers.
-                </p>
+            <?php if ($possuiClube): ?>
+                <section class="clube-concluido" aria-label="Cadastro concluído">
+                    <h3>Cadastro concluido com sucesso</h3>
+                    <p>Seu cadastro Coffee Lovers está ativo. A partir de agora, cada produto será cobrado pelo preço do clube.</p>
+                    <a class="botao-continuar botao-continuar--inline" href="cardapio.php">Ver cardápio</a>
+                </section>
+            <?php else: ?>
+                <form class="form-cadastro" action="../processamento/coffee_lovers_salvar.php" method="POST">
+                    <p class="form-cadastro__texto">
+                        Informe seu CPF e senha da conta para confirmar seu cadastro no clube Coffee Lovers.
+                    </p>
 
-                <label class="campo-cadastro">
-                    <span>Cpf</span>
-                    <input type="text" name="cpf" placeholder="CPF" value="<?= e($cliente['cpf'] ?? ''); ?>" required>
-                </label>
+                    <label class="campo-cadastro">
+                        <span>Cpf</span>
+                        <input type="text" name="cpf" placeholder="CPF" value="<?= e($cliente['cpf'] ?? ''); ?>" required>
+                    </label>
 
-                <label class="campo-cadastro">
-                    <span>Senha</span>
-                    <input type="password" name="senha" placeholder="Senha" autocomplete="current-password" required>
-                </label>
+                    <label class="campo-cadastro">
+                        <span>Senha</span>
+                        <input type="password" name="senha" placeholder="Senha" autocomplete="current-password" required>
+                    </label>
 
-                <div class="separador-cadastro" aria-hidden="true">
-                    <span></span>
-                    <span></span>
-                </div>
+                    <div class="separador-cadastro" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                    </div>
 
-                <label class="checkbox-cadastro">
-                    <input type="checkbox" name="marketing" value="1">
-                    <span>Aceito receber comunicações de promoções e marketing.</span>
-                </label>
+                    <label class="checkbox-cadastro">
+                        <input type="checkbox" name="marketing" value="1">
+                        <span>Aceito receber comunicações de promoções e marketing.</span>
+                    </label>
 
-                <p class="observacao-cadastro">
-                    <span aria-hidden="true">ⓘ</span>
-                    As informações coletadas no cadastro do cliente serão utilizadas para identificação das reservas, pedidos e execução de contrato entre o titular e a Noble Blend Café.
-                </p>
+                    <p class="observacao-cadastro">
+                        <span aria-hidden="true">ⓘ</span>
+                        As informações coletadas no cadastro do cliente serão utilizadas para identificação das reservas, pedidos e execução de contrato entre o titular e a Noble Blend Café.
+                    </p>
 
-                <button class="botao-continuar" type="submit">
-                    <?= $possuiClube ? 'Atualizar cadastro' : 'Concluir cadastro'; ?>
-                </button>
+                    <button class="botao-continuar" type="submit">Concluir cadastro</button>
 
-                <p class="observacao-cadastro">
-                    <a href="logado_cliente.php">Voltar para o início</a>
-                </p>
-            </form>
+                    <p class="observacao-cadastro">
+                        <a href="logado_cliente.php">Voltar para o início</a>
+                    </p>
+                </form>
+            <?php endif; ?>
         </section>
     </main>
 </body>

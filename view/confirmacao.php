@@ -27,7 +27,11 @@ $pedido = $numero ? Pedido::buscarPorNumero($numero, AuthController::clienteId()
                 <a class="btn" href="cliente_pedidos.php">Meus pedidos</a>
             </section>
         <?php else: ?>
-            <section class="confirmation-hero">
+            <?php
+                $complemento = trim((string) ($pedido['complemento'] ?? ''));
+                $linhaEndereco = trim($pedido['endereco'] . ', ' . $pedido['numero'] . ($complemento !== '' ? ' ' . $complemento : ''));
+            ?>
+            <section class="confirmation-hero confirmation-hero--pedido" style="--confirmation-img: url('<?= e(asset('../img/fundo-hero.png')); ?>');">
                 <p class="eyebrow">Pedido confirmado</p>
                 <h1><?= e($pedido['numero_pedido']); ?></h1>
                 <p>Recebemos seu pedido e a equipe já pode acompanhar o preparo na área de funcionário.</p>
@@ -36,10 +40,16 @@ $pedido = $numero ? Pedido::buscarPorNumero($numero, AuthController::clienteId()
             <section class="checkout-layout">
                 <div class="form-panel">
                     <h2>Entrega</h2>
-                    <p><strong><?= e($pedido['nome_destinatario']); ?></strong></p>
-                    <p><?= e($pedido['endereco']); ?>, <?= e($pedido['numero']); ?> <?= e($pedido['complemento']); ?></p>
-                    <p><?= e($pedido['bairro']); ?> - <?= e($pedido['cidade']); ?>/<?= e($pedido['uf']); ?>, <?= e($pedido['cep']); ?></p>
-                    <p>Status atual: <strong><?= e($pedido['status']); ?></strong></p>
+                    <div class="delivery-card">
+                        <div class="delivery-card__top">
+                            <span>Endere&ccedil;o salvo</span>
+                            <strong><?= e($pedido['status']); ?></strong>
+                        </div>
+                        <h3><?= e($pedido['nome_destinatario']); ?></h3>
+                        <p><?= e($linhaEndereco); ?></p>
+                        <p><?= e($pedido['bairro']); ?> - <?= e($pedido['cidade']); ?>/<?= e($pedido['uf']); ?>, <?= e($pedido['cep']); ?></p>
+                        <p class="delivery-card__status">Status atual: <strong><?= e($pedido['status']); ?></strong></p>
+                    </div>
 
                     <h2>Itens</h2>
                     <div class="table-wrap">

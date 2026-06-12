@@ -64,12 +64,13 @@ $totalCartao = max(0, $subtotal + $frete);
 
                         <label class="field">
                             <span>CEP</span>
-                            <input type="text" name="cep" placeholder="00000-000" required>
+                            <input type="text" name="cep" id="cep" placeholder="00000-000" inputmode="numeric" required>
+                            <small class="field-hint" id="cep-status">Digite o CEP para buscar o endereço.</small>
                         </label>
 
                         <label class="field">
                             <span>Rua</span>
-                            <input type="text" name="endereco" required>
+                            <input type="text" name="endereco" id="endereco" required>
                         </label>
 
                         <label class="field">
@@ -84,17 +85,17 @@ $totalCartao = max(0, $subtotal + $frete);
 
                         <label class="field">
                             <span>Bairro</span>
-                            <input type="text" name="bairro" required>
+                            <input type="text" name="bairro" id="bairro" required>
                         </label>
 
                         <label class="field">
                             <span>Cidade</span>
-                            <input type="text" name="cidade" required>
+                            <input type="text" name="cidade" id="cidade" required>
                         </label>
 
                         <label class="field">
                             <span>UF</span>
-                            <input type="text" name="uf" maxlength="2" required>
+                            <input type="text" name="uf" id="uf" maxlength="2" required>
                         </label>
                     </div>
 
@@ -150,5 +151,6 @@ $totalCartao = max(0, $subtotal + $frete);
             </form>
         <?php endif; ?>
     </main>
+    <script src="<?= asset('../js/checkout.js'); ?>"></script>
 </body>
 </html>
