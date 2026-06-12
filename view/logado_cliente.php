@@ -1,16 +1,12 @@
 <?php
-function asset(string $caminho): string
-{
-    $caminho = ltrim($caminho, '/');
-    if (defined('BASE_URL')) {
-        return rtrim(BASE_URL, '/') . '/' . $caminho;
-    }
-    $base = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
-    $base = ($base === '/' || $base === '.' || $base === '\\') ? '' : rtrim($base, '/');
-    return $base . '/' . $caminho;
-}
+require_once __DIR__ . '/../controller/AuthController.php';
+require_once __DIR__ . '/../controller/ViewHelper.php';
+require_once __DIR__ . '/../model/Carrinho.php';
+
+AuthController::requireCliente();
 
 $baseImg = '../img/';
+$totalCarrinho = Carrinho::quantidadeTotal(AuthController::clienteId());
 
 $imagens = [
     'logo'        => asset($baseImg . 'logo.png'),
@@ -54,26 +50,7 @@ $pacotes = [
     <link rel="stylesheet" href="<?= asset('../css/logado_cliente.css'); ?>">
 </head>
 <body id="topo">
-    <header class="cabecalho-logado">
-        <nav class="navbar-logado" aria-label="Navegação do cliente">
-            <a href="logado_cliente.php" class="navbar-logado__logo" aria-label="Página inicial">
-                <img src="<?= $imagens['logo']; ?>" alt="Logo Noble Blend Café">
-            </a>
-
-            <div class="navbar-logado__links">
-                <a href="logado_cliente.php">Início</a>
-                <a href="sobrenos.html">Sobre nós</a>
-                <a href="ajuda.php">Ajuda</a>
-                <a href="contato.php">Contato</a>
-                <a href="cardapio.php">Cardápio</a>
-                <a href="carrinho.php">Carrinho</a>
-            </div>
-
-            <a href="cadastro_coffee_lovers.php" class="navbar-logado__icone" aria-label="Perfil do cliente">
-                <img src="<?= $imagens['xicaraNav']; ?>" alt="Perfil do cliente">
-            </a>
-        </nav>
-    </header>
+    <?php include __DIR__ . '/partials/nav_cliente.php'; ?>
 
     <main>
         <section class="hero-logado" aria-labelledby="titulo-home-logado" style="--hero-bg: url('<?= $imagens['hero']; ?>');">
@@ -91,7 +68,7 @@ $pacotes = [
                     <img src="<?= $card['icone']; ?>" alt="" aria-hidden="true">
                     <h2><?= $card['titulo']; ?></h2>
                     <ul>
-                        <li>Benefícios da torra clara</li>
+                        <li>Benefícios da torra</li>
                         <li>Receitas sugeridas</li>
                     </ul>
                     <span>Saiba mais</span>
@@ -112,14 +89,14 @@ $pacotes = [
                         <img src="<?= asset($baseImg . 'graos-de-cafe-icone.png'); ?>" alt="" aria-hidden="true">
                         <div>
                             <h3>Seleção cuidadosa:</h3>
-                            <p>Selecionamos os grãos de fazendas renomadas, garantindo que apenas os melhores grãos de café arábica.</p>
+                            <p>Selecionamos os grãos de fazendas renomadas, garantindo que apenas os melhores grãos de café arábica componham nossos blends.</p>
                         </div>
                     </article>
                     <article class="qualidade__item">
                         <img src="<?= asset($baseImg . 'cafeteira_icone.png'); ?>" alt="" aria-hidden="true">
                         <div>
-                            <h3>Torrefação Artesanal:</h3>
-                            <p>Os grãos são torrados artesanalmente em pequenos lotes, permitindo um controle preciso do perfil de sabor e garantindo qualidade.</p>
+                            <h3>Torrefação artesanal:</h3>
+                            <p>Os grãos são torrados artesanalmente em pequenos lotes, permitindo controle preciso do perfil de sabor e da qualidade.</p>
                         </div>
                     </article>
                 </div>
@@ -127,9 +104,7 @@ $pacotes = [
         </section>
 
         <section class="mapa-graos" aria-label="Mapa mundi feito com grãos de café">
-            <div class="mapa-graos__faixa mapa-graos__faixa--superior" aria-hidden="true"></div>
             <img src="<?= $imagens['mapaGraos']; ?>" alt="Mapa mundi formado por grãos de café">
-            <div class="mapa-graos__faixa mapa-graos__faixa--inferior" aria-hidden="true"></div>
         </section>
 
         <section class="destaques container" aria-labelledby="titulo-destaques">
@@ -184,6 +159,6 @@ $pacotes = [
             </div>
         </div>
     </footer>
-    <script src="<?= asset('js/logado_cliente.js'); ?>"></script>
+    <script src="<?= asset('../js/logado_cliente.js'); ?>"></script>
 </body>
 </html>
