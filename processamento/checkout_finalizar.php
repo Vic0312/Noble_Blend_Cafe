@@ -10,16 +10,23 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$obrigatorios = array('nome_destinatario', 'telefone', 'cep', 'endereco', 'numero', 'bairro', 'cidade', 'uf', 'metodo_pagamento');
+$formaRetirada = ($_POST['forma_retirada'] ?? 'entrega') === 'retirada' ? 'retirada' : 'entrega';
+$obrigatorios = array('metodo_pagamento');
+
+if ($formaRetirada === 'entrega') {
+    $obrigatorios = array_merge($obrigatorios, array('nome_destinatario', 'telefone', 'cep', 'endereco', 'numero', 'bairro', 'cidade', 'uf'));
+}
+
 foreach ($obrigatorios as $campo) {
     if (trim($_POST[$campo] ?? '') === '') {
-        flash_set('erro', 'Preencha todos os dados de entrega e pagamento.');
+        flash_set('erro', 'Preencha todos os dados necessários para finalizar o pedido.');
         header('Location: ../view/checkout.php');
         exit;
     }
 }
 
 $entrega = array(
+    'forma_retirada' => $formaRetirada,
     'nome_destinatario' => $_POST['nome_destinatario'] ?? '',
     'telefone' => $_POST['telefone'] ?? '',
     'cep' => $_POST['cep'] ?? '',

@@ -5,6 +5,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const bairro = document.getElementById('bairro');
     const cidade = document.getElementById('cidade');
     const uf = document.getElementById('uf');
+    const deliveryFields = document.getElementById('delivery-fields');
+    const pickupNote = document.getElementById('pickup-note');
+    const deliveryRequiredFields = document.querySelectorAll('[data-delivery-field]');
+    const fulfillmentInputs = document.querySelectorAll('input[name="forma_retirada"]');
+    const summaryFrete = document.getElementById('summary-frete');
+    const summaryTotalPix = document.getElementById('summary-total-pix');
+    const summaryCard = document.getElementById('summary-card');
+
+    const updateFulfillment = () => {
+        const selected = document.querySelector('input[name="forma_retirada"]:checked')?.value || 'entrega';
+        const isDelivery = selected === 'entrega';
+
+        if (deliveryFields) deliveryFields.hidden = !isDelivery;
+        if (pickupNote) pickupNote.hidden = isDelivery;
+
+        deliveryRequiredFields.forEach((field) => {
+            field.required = isDelivery;
+        });
+
+        if (summaryFrete) summaryFrete.textContent = summaryFrete.dataset[selected] || summaryFrete.textContent;
+        if (summaryTotalPix) summaryTotalPix.textContent = summaryTotalPix.dataset[selected] || summaryTotalPix.textContent;
+        if (summaryCard) summaryCard.textContent = summaryCard.dataset[selected] || summaryCard.textContent;
+    };
+
+    fulfillmentInputs.forEach((input) => input.addEventListener('change', updateFulfillment));
+    updateFulfillment();
 
     if (!cepInput || !status || !endereco || !bairro || !cidade || !uf) return;
 

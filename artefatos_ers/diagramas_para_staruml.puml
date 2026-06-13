@@ -1,0 +1,39 @@
+@startuml
+title DSS - Realizar Pedido Online
+actor Cliente
+participant Sistema
+Cliente -> Sistema: autentica-se
+Cliente -> Sistema: consulta cardapio e filtros
+Cliente -> Sistema: adiciona produto ao carrinho
+Cliente -> Sistema: revisa carrinho
+Cliente -> Sistema: informa entrega e pagamento
+Sistema --> Cliente: confirma pedido e numero
+@enduml
+
+@startuml
+title DSS - Atender/Monitorar Pedido
+actor Funcionario
+participant Sistema
+Funcionario -> Sistema: autentica-se
+Funcionario -> Sistema: consulta painel de pedidos
+Funcionario -> Sistema: altera status do pedido
+Sistema --> Funcionario: registra novo status
+@enduml
+
+@startuml
+title Modelo Conceitual
+class Cliente
+class Carrinho
+class Produto
+class Pedido
+class Endereco
+class ItemPedido
+class Funcionario
+Cliente "1" -- "N" Carrinho
+Produto "1" -- "N" Carrinho
+Cliente "1" -- "N" Pedido
+Endereco "1" -- "N" Pedido
+Pedido "1" -- "N" ItemPedido
+Produto "1" -- "N" ItemPedido
+Funcionario ..> Pedido : atualiza status
+@enduml

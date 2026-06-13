@@ -40,6 +40,7 @@ $pedidos = Pedido::listarRecentes(50);
                         <th>Cliente</th>
                         <th>Data</th>
                         <th>Total</th>
+                        <th>Forma</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -50,6 +51,7 @@ $pedidos = Pedido::listarRecentes(50);
                             <td><?= e($pedido['cliente_nome']); ?></td>
                             <td><?= date('d/m/Y H:i', strtotime($pedido['criado_em'])); ?></td>
                             <td><?= money($pedido['total']); ?></td>
+                            <td><?= ($pedido['forma_retirada'] ?? 'entrega') === 'retirada' ? 'Retirada' : 'Entrega'; ?></td>
                             <td>
                                 <form class="inline-form" action="../processamento/pedido_status.php" method="post">
                                     <input type="hidden" name="id_pedido" value="<?= (int) $pedido['id_pedido']; ?>">
@@ -58,13 +60,18 @@ $pedidos = Pedido::listarRecentes(50);
                                             <option value="<?= e($status); ?>" <?= $pedido['status'] === $status ? 'selected' : ''; ?>><?= e($status); ?></option>
                                         <?php endforeach; ?>
                                     </select>
+                                    <label class="inline-form__field">
+                                        <span>Tempo</span>
+                                        <input type="number" name="tempo_estimado_preparo" min="1" value="<?= (int) ($pedido['tempo_estimado_preparo'] ?? 40); ?>">
+                                        <small>min</small>
+                                    </label>
                                     <button class="btn btn--small" type="submit">Salvar</button>
                                 </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                     <?php if (empty($pedidos)): ?>
-                        <tr><td colspan="5">Nenhum pedido registrado ainda.</td></tr>
+                        <tr><td colspan="6">Nenhum pedido registrado ainda.</td></tr>
                     <?php endif; ?>
                 </tbody>
             </table>

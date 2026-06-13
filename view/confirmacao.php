@@ -28,8 +28,11 @@ $pedido = $numero ? Pedido::buscarPorNumero($numero, AuthController::clienteId()
             </section>
         <?php else: ?>
             <?php
+                $retiradaNaLoja = ($pedido['forma_retirada'] ?? 'entrega') === 'retirada';
                 $complemento = trim((string) ($pedido['complemento'] ?? ''));
-                $linhaEndereco = trim($pedido['endereco'] . ', ' . $pedido['numero'] . ($complemento !== '' ? ' ' . $complemento : ''));
+                $linhaEndereco = !$retiradaNaLoja
+                    ? trim($pedido['endereco'] . ', ' . $pedido['numero'] . ($complemento !== '' ? ' ' . $complemento : ''))
+                    : '';
             ?>
             <section class="confirmation-hero confirmation-hero--pedido" style="--confirmation-img: url('<?= e(asset('../img/fundo-hero.png')); ?>');">
                 <p class="eyebrow">Pedido confirmado</p>
@@ -39,16 +42,23 @@ $pedido = $numero ? Pedido::buscarPorNumero($numero, AuthController::clienteId()
 
             <section class="checkout-layout">
                 <div class="form-panel">
-                    <h2>Entrega</h2>
+                    <h2><?= $retiradaNaLoja ? 'Retirada na loja' : 'Entrega'; ?></h2>
                     <div class="delivery-card">
                         <div class="delivery-card__top">
-                            <span>Endere&ccedil;o salvo</span>
+                            <span><?= $retiradaNaLoja ? 'Preparo do pedido' : 'Endere&ccedil;o salvo'; ?></span>
                             <strong><?= e($pedido['status']); ?></strong>
                         </div>
-                        <h3><?= e($pedido['nome_destinatario']); ?></h3>
-                        <p><?= e($linhaEndereco); ?></p>
-                        <p><?= e($pedido['bairro']); ?> - <?= e($pedido['cidade']); ?>/<?= e($pedido['uf']); ?>, <?= e($pedido['cep']); ?></p>
-                        <p class="delivery-card__status">Status atual: <strong><?= e($pedido['status']); ?></strong></p>
+                        <?php if ($retiradaNaLoja): ?>
+                            <h3>Retirar na Noble Blend Café</h3>
+                            <p>Status atual: <strong><?= e($pedido['status']); ?></strong></p>
+                            <p>Tempo estimado de preparo: <strong><?= (int) $pedido['tempo_estimado_preparo']; ?> minutos</strong></p>
+                            <p class="delivery-card__status">Acompanhe o status do pedido e retire no balcão quando estiver pronto.</p>
+                        <?php else: ?>
+                            <h3><?= e($pedido['nome_destinatario']); ?></h3>
+                            <p><?= e($linhaEndereco); ?></p>
+                            <p><?= e($pedido['bairro']); ?> - <?= e($pedido['cidade']); ?>/<?= e($pedido['uf']); ?>, <?= e($pedido['cep']); ?></p>
+                            <p class="delivery-card__status">Status atual: <strong><?= e($pedido['status']); ?></strong></p>
+                        <?php endif; ?>
                     </div>
 
                     <h2>Itens</h2>

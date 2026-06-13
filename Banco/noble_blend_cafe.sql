@@ -94,11 +94,13 @@ CREATE TABLE pedidos (
   id_cliente INT NOT NULL,
   id_endereco INT DEFAULT NULL,
   metodo_pagamento VARCHAR(40) NOT NULL,
+  forma_retirada VARCHAR(20) NOT NULL DEFAULT 'entrega',
   subtotal DECIMAL(10,2) NOT NULL,
   frete DECIMAL(10,2) NOT NULL DEFAULT 0.00,
   desconto DECIMAL(10,2) NOT NULL DEFAULT 0.00,
   total DECIMAL(10,2) NOT NULL,
   status VARCHAR(40) NOT NULL DEFAULT 'Recebido',
+  tempo_estimado_preparo INT NOT NULL DEFAULT 40,
   criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_pedido_cliente FOREIGN KEY (id_cliente)
     REFERENCES clientes (id_cliente),

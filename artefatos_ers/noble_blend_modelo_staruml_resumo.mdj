@@ -1,0 +1,11 @@
+{
+  "_type": "Project",
+  "name": "Noble Blend Cafe - ERS ate 3.6",
+  "ownedElements": [
+    {
+      "_type": "UMLModel",
+      "name": "Analise",
+      "documentation": "Projeto de apoio criado a partir do codigo e do banco SQL. Use o arquivo diagramas_para_staruml.puml como roteiro/importacao para os diagramas no StarUML."
+    }
+  ]
+}
